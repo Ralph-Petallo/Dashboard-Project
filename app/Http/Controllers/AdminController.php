@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use App\Models\DeletedStudent;
 use App\Models\Student;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 // Make sure to import the Worker model
 
@@ -38,7 +37,7 @@ class AdminController extends Controller
 
         try {
             // Hash the password
-            $incomingRegister['password'] = Hash::make($incomingRegister['password']);
+            $incomingRegister['password'] = bcrypt($incomingRegister['password']);
 
             // Create student
             Student::create($incomingRegister);
