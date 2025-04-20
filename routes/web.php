@@ -19,11 +19,12 @@ Route::get('/', [AdminController::class, 'login']);
 Route::get('/index', [AdminController::class, 'index']);
 Route::get('/forms', [AdminController::class, 'forms']);
 Route::get('/tables', [AdminController::class, 'tables']);
-
-//post methods
 Route::post('/register', [AdminController::class, 'register']);
-Route::post('/tables/delete', [AdminController::class, 'delete']);
 
-//put methods
-Route::put('/tables/update', [AdminController::class, 'update']);
-Route::put('/tables/restore', [AdminController::class, 'restore']);
+Route::prefix('tables')->group(function () {
+    Route::post('/remove', [AdminController::class, 'remove']);
+    Route::post('/delete', [AdminController::class, 'delete']);
+
+    Route::put('/update', [AdminController::class, 'update']);
+    Route::put('/restore', [AdminController::class, 'restore']);
+});

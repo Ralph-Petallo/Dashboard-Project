@@ -51,6 +51,7 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'Failed to register student: ' . $e->getMessage());
         }
     }
+
     public function tables()
     {
         // Fetch all active students
@@ -67,22 +68,25 @@ class AdminController extends Controller
     {
         $student = Student::findOrFail($request->id);
         $student->update($request->only(['first_name', 'last_name', 'password', 'email', 'number']));
+
         return redirect()->back()->with('success', 'Student updated!');
     }
-    public function delete(Request $request)
+
+    public function remove(Request $request)
     {
         $student = Student::findOrFail($request->id);
 
         // Log the student information for debugging
         \Log::info('Deleting student:', ['id' => $student->id]);
 
-        // Copy student to deleted_students
         DeletedStudent::create([
             'first_name' => $student->first_name,
             'last_name'  => $student->last_name,
             'password'   => $student->password,
             'email'      => $student->email,
             'number'     => $student->number,
+            'created_at' => $student->created_at,
+            'updated_at' => $student->updated_at,
             'deleted_at' => now(),
         ]);
 
@@ -97,13 +101,14 @@ class AdminController extends Controller
         // Find the deleted student by ID
         $deletedStudent = DeletedStudent::findOrFail($request->id);
 
-        // Restore the student to the original students table
         Student::create([
             'first_name' => $deletedStudent->first_name,
             'last_name'  => $deletedStudent->last_name,
             'password'   => $deletedStudent->password,
             'email'      => $deletedStudent->email,
             'number'     => $deletedStudent->number,
+            'created_at' => $deletedStudent->created_at,
+            'updated_at' => $deletedStudent->updated_at,
         ]);
 
         // Optionally, delete the record from the deleted_students table
@@ -111,4 +116,14 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success', 'Student restored successfully!');
     }
+
+    public function delete(Request $request)
+    {
+                                                             // Find the student by ID and delete it
+        $student = DeletedStudent::findOrFail($request->id); // Assuming you have a DeletedStudent model
+        $student->delete();                                  // This will delete the record from the database
+
+        return redirect()->back()->with('success', 'Student deleted successfully.');
+    }
+
 }

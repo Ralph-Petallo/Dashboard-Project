@@ -18,9 +18,10 @@ class Student extends Model
     public $incrementing = true; // Assuming 'id' is an auto-incrementing integer
 
     protected $fillable = [
-        'first_name', 'last_name', 'password', 'email', 'number', 'created_at',
+        'first_name', 'last_name', 'password', 'email', 'number',
     ];
 
                                // Enable timestamps if you have created_at and updated_at columns
     public $timestamps = true; // Set to true since you have created_at and updated_at columns
+
 }

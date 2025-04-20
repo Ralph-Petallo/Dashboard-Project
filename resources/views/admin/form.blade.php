@@ -55,23 +55,23 @@
                                         </div>
                                         @endif
                                         <div class="form-group">
-                                            <label class="form-control-label">First Name</label>
+                                            <label class="form-control-label">First Name :</label>
                                             <input type="text" name="first_name" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <label class="form-control-label">Last Name</label>
+                                            <label class="form-control-label">Last Name :</label>
                                             <input type="text" name="last_name" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <label class="form-control-label">Password</label>
+                                            <label class="form-control-label">Password :</label>
                                             <input type="password" name="password" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <label class="form-control-label">Email</label>
+                                            <label class="form-control-label">Email :</label>
                                             <input type="email" name="email" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <label class="form-control-label">Phone Number</label>
+                                            <label class="form-control-label">Phone Number :</label>
                                             <input type="text" name="number" class="form-control">
                                         </div>
                                         <div class="form-group">
